@@ -3,7 +3,7 @@
   "name": "stablecog",
   "title": "Stablecog",
   "description": "Create amazing art with AI in seconds.",
-  "icon": "command-icon.png",
+  "icon": "stablecog.png",
   "author": "yektagg",
   "owner": "stablecog",
   "categories": [
@@ -13,15 +13,24 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
+      "name": "imagine",
       "title": "Imagine",
-      "subtitle": "Create art with AI.",
-      "description": "Template for submitting a form",
-      "mode": "view"
+      "subtitle": "Create art with AI",
+      "description": "Create art with AI",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "Prompt",
+          "placeholder": "Prompt",
+          "type": "text",
+          "required": true
+        }
+      ]
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.57.2"
+    "@raycast/api": "^1.57.2",
+    "@raycast/utils": "^1.9.1"
   },
   "devDependencies": {
     "@raycast/eslint-config": "1.0.5",
