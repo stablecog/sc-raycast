@@ -16,7 +16,7 @@
       "name": "imagine",
       "title": "Imagine",
       "subtitle": "Create art with AI",
-      "description": "Create art with AI",
+      "description": "Create art with AI.",
       "mode": "view",
       "arguments": [
         {
@@ -26,11 +26,37 @@
           "required": true
         }
       ]
+    },
+    {
+      "name": "search-your-history",
+      "title": "Search Your History",
+      "subtitle": "Stablecog",
+      "description": "Search your history on Stablecog.",
+      "mode": "view"
+    },
+    {
+      "name": "search-gallery",
+      "title": "Search Gallery",
+      "subtitle": "Stablecog",
+      "description": "Search the Stablecog gallery.",
+      "mode": "view"
+    },
+    {
+      "name": "upscale",
+      "title": "Upscale",
+      "subtitle": "Upscale images with AI",
+      "description": "Upscale images with AI.",
+      "mode": "view"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.57.2",
-    "@raycast/utils": "^1.9.1"
+    "@raycast/utils": "^1.9.1",
+    "file-type": "^18.5.0",
+    "form-data-encoder": "^3.0.0",
+    "formdata-node": "^5.0.1",
+    "image-size": "^1.0.2",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@raycast/eslint-config": "1.0.5",

@@ -1,6 +1,10 @@
-import { LaunchProps, Grid } from "@raycast/api";
+import { LaunchProps, Grid, Detail } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
 import { TGenerationCreateResult } from "./types";
+import { loadingGif } from "./constants";
+import GridSomethingWentWrong from "./components/GridSomethingWentWrong";
+import { useToken } from "@hooks/useAuthorization";
+import LoadingToken from "@components/LoadingToken";
 
 export default function Command(props: LaunchProps<{ arguments: Arguments.Imagine }>) {
   const { Prompt } = props.arguments;
@@ -10,28 +14,32 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
     prompt: Prompt,
     num_outputs,
   };
-  const apiKey = "sc-70317b49e88d02956662c5d6e9a8f6ea8afa6a66e3a4676b6348716a6744ccd6";
-  const { data, isLoading } = useFetch<TGenerationCreateResult>(endpoint, {
+  const { token, isTokenLoading } = useToken();
+  const { data, isLoading, error } = useFetch<TGenerationCreateResult>(endpoint, {
     method: "POST",
     body: JSON.stringify(generationParams),
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
+  if (isTokenLoading) return <LoadingToken />;
+
   return (
-    <Grid isLoading={isLoading} columns={num_outputs}>
-      {Array.from({ length: num_outputs }, (_, i) => (
-        <Grid.Item
-          key={i}
-          content={{
-            source: isLoading
-              ? "../assets/generation-loading.svg"
-              : data?.outputs[i].url || "../assets/generation-loading.svg",
-          }}
-        ></Grid.Item>
-      ))}
+    <Grid isLoading={isLoading} columns={num_outputs} onSearchTextChange={() => null}>
+      {error ? (
+        <GridSomethingWentWrong />
+      ) : (
+        Array.from({ length: num_outputs }, (_, i) => (
+          <Grid.Item
+            key={i}
+            content={{
+              source: isLoading ? loadingGif : data?.outputs[i].url || loadingGif,
+            }}
+          ></Grid.Item>
+        ))
+      )}
     </Grid>
   );
 }
