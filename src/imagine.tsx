@@ -1,8 +1,8 @@
-import { LaunchProps, Grid, Detail } from "@raycast/api";
+import { LaunchProps, Grid } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
-import { TGenerationCreateResult } from "./types";
-import { loadingGif } from "./constants";
-import GridSomethingWentWrong from "./components/GridSomethingWentWrong";
+import { TGenerationCreateResult } from "@ts/types";
+import { loadingGif } from "@ts/constants";
+import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 

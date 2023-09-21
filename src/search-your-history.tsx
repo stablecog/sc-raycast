@@ -1,9 +1,9 @@
 import { Grid } from "@raycast/api";
 import { useState } from "react";
-import useHistory from "./hooks/useHistory";
-import GridSearchingPlaceholder from "./components/GridSearchingPlaceholder";
-import GridNoItemsPlaceholder from "./components/GridNoItemsPlaceholder";
-import GridSomethingWentWrong from "./components/GridSomethingWentWrong";
+import useHistory from "@hooks/useHistory";
+import GridSearchingPlaceholder from "@components/GridSearchingPlaceholder";
+import GridNoItemsPlaceholder from "@components/GridNoItemsPlaceholder";
+import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 

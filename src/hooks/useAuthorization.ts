@@ -1,4 +1,4 @@
-import { authorize } from "@/api/oauth";
+import { authorize } from "@api/oauth";
 import { useEffect, useState } from "react";
 
 export function useToken() {

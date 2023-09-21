@@ -1,11 +1,11 @@
-import { Form, ActionPanel, Action, Grid, showToast, Toast, getPreferenceValues } from "@raycast/api";
+import { Form, ActionPanel, Action, Grid, showToast, Toast } from "@raycast/api";
 import { useForm } from "@raycast/utils";
-import { TUpscaleCreateResult, TUpscaleFormValues } from "./types";
+import { TUpscaleCreateResult, TUpscaleFormValues } from "@ts/types";
 import { useState } from "react";
 import { readFile } from "fs/promises";
 import fetch from "node-fetch";
 import { FormData, File } from "formdata-node";
-import { loadingGif } from "./constants";
+import { loadingGif } from "@ts/constants";
 import imageSizeOf from "image-size";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";

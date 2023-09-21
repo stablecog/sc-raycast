@@ -1,5 +1,5 @@
 import { useFetch } from "@raycast/utils";
-import { TGalleryPage } from "../types";
+import { TGalleryPage } from "@ts/types";
 
 export default function useGallery<T>(search: string): {
   galleryPage: TGalleryPage | undefined;

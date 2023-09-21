@@ -1,9 +1,9 @@
 import { Grid } from "@raycast/api";
 import { useState } from "react";
-import useGallery from "./hooks/useGallery";
-import GridSearchingPlaceholder from "./components/GridSearchingPlaceholder";
-import GridNoItemsPlaceholder from "./components/GridNoItemsPlaceholder";
-import GridSomethingWentWrong from "./components/GridSomethingWentWrong";
+import useGallery from "@hooks/useGallery";
+import GridSearchingPlaceholder from "@components/GridSearchingPlaceholder";
+import GridNoItemsPlaceholder from "@components/GridNoItemsPlaceholder";
+import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 
 export default function Command() {
   const [query, setQuery] = useState("");

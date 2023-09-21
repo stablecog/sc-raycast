@@ -1,5 +1,5 @@
 import { useFetch } from "@raycast/utils";
-import { THistoryPage } from "../types";
+import { THistoryPage } from "@ts/types";
 
 export default function useHistory<T>({ search, token }: { search: string; token: string | undefined }): {
   historyPage: THistoryPage | undefined;
