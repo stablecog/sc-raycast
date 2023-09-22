@@ -71,7 +71,7 @@
     },
     {
       "title": "Number of Outputs",
-      "default": "1",
+      "default": "2",
       "type": "dropdown",
       "description": "The number of images to create.",
       "name": "num_outputs",
