@@ -18,5 +18,6 @@ Create amazing art with AI in seconds using [Stablecog](https://stablecog.com) a
 
 ![Search Your History](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/4-history.png)
 
-View generation details:
-![Generation Details](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/5-generation-detail.png)
+### View generation details:
+
+![Generation Details](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/5-generation-details.png)
