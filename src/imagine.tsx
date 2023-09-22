@@ -1,7 +1,7 @@
-import { LaunchProps, Grid } from "@raycast/api";
+import { LaunchProps, Grid, getPreferenceValues } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
 import { TGenerationCreateResult } from "@ts/types";
-import { loadingGif } from "@ts/constants";
+import { aspectRatioToSize, defaultGridColumnsForImagine, loadingGif, modelNameToId } from "@ts/constants";
 import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
@@ -10,10 +10,15 @@ import GalleryItemActions from "@components/GalleryItemActions";
 export default function Command(props: LaunchProps<{ arguments: Arguments.Imagine }>) {
   const { Prompt } = props.arguments;
   const endpoint = "https://api.stablecog.com/v1/image/generation/create";
-  const num_outputs = 2;
+  const { model, aspect_ratio, num_outputs } = getPreferenceValues<Preferences>();
+  const size = aspectRatioToSize[aspect_ratio];
+  const num_outputs_int = Number(num_outputs);
   const generationParams = {
     prompt: Prompt,
-    num_outputs,
+    num_outputs: num_outputs_int,
+    model_id: modelNameToId[model] ?? undefined,
+    width: size.width,
+    height: size.height,
   };
   const { token, isTokenLoading } = useToken();
   const { data, isLoading, error } = useFetch<TGenerationCreateResult>(endpoint, {
@@ -28,11 +33,11 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
   if (isTokenLoading) return <LoadingToken />;
 
   return (
-    <Grid isLoading={isLoading} columns={num_outputs} onSearchTextChange={() => null}>
+    <Grid isLoading={isLoading} columns={defaultGridColumnsForImagine} onSearchTextChange={() => null}>
       {error ? (
         <GridSomethingWentWrong />
       ) : (
-        Array.from({ length: num_outputs }, (_, i) => (
+        Array.from({ length: num_outputs_int }, (_, i) => (
           <Grid.Item
             key={i}
             actions={

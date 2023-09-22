@@ -2,6 +2,7 @@ export const loadingGif =
   "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExczB1MXY3d3VwbWhrbnczZXlzcHR5d2F3bDE3NnAyNzR6cDcwbndqbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/p0iitl8d1qMwBDT2ve/giphy.gif";
 
 export const defaultGridColumns = 4;
+export const defaultGridColumnsForImagine = 2;
 
 export const modelIdToName: Record<string, string> = {
   "b6c1372f-31a7-457c-907c-d292a6ffef97": "Luna Diffusion",
@@ -18,6 +19,12 @@ export const modelIdToName: Record<string, string> = {
   "48a7031d-43b6-4a23-9f8c-8020eb6862e4": "Ghibli Diffusion",
 };
 
+export const modelNameToId: Record<string, string> = {};
+
+for (const [id, name] of Object.entries(modelIdToName)) {
+  modelNameToId[name] = id;
+}
+
 export const schedulerIdToName: Record<string, string> = {
   "6fb13b76-9900-4fa4-abf8-8f843e034a7f": "Euler",
   "af2679a4-dbbb-4950-8c06-c3bb15416ef6": "Euler A.",
@@ -27,3 +34,12 @@ export const schedulerIdToName: Record<string, string> = {
   "b7224e56-1440-43b9-ac86-66d66f9e8c91": "P Sampler",
   "cc1b8dbf-0aec-4e52-8110-8082506fb7ba": "DDPM",
 };
+
+export const aspectRatioToSize = {
+  "1:1": { width: 1024, height: 1024 },
+  "2:3": { width: 832, height: 1248 },
+  "3:2": { width: 1248, height: 832 },
+  "16:9": { width: 1280, height: 720 },
+  "9:16": { width: 720, height: 1280 },
+  "4:5": { width: 896, height: 1120 },
+} as const;
