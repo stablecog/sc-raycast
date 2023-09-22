@@ -12,7 +12,7 @@ export interface TGenerationCreateResult {
   };
 }
 
-interface TGenerationCreationOutput {
+export interface TGenerationCreationOutput {
   id: string;
   url: string;
 }
@@ -22,7 +22,7 @@ export interface TUpscaleCreateResult {
   remaining_credits: number;
 }
 
-interface TUpscaleCreationOutput {
+export interface TUpscaleCreationOutput {
   id: string;
   url: string;
 }

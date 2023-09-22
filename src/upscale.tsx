@@ -1,6 +1,6 @@
 import { Form, ActionPanel, Action, Grid, showToast, Toast } from "@raycast/api";
 import { useForm } from "@raycast/utils";
-import { TUpscaleCreateResult, TUpscaleFormValues } from "@ts/types";
+import { TUpscaleCreateResult, TUpscaleCreationOutput, TUpscaleFormValues } from "@ts/types";
 import { useState } from "react";
 import { readFile } from "fs/promises";
 import fetch from "node-fetch";
@@ -9,6 +9,7 @@ import { loadingGif } from "@ts/constants";
 import imageSizeOf from "image-size";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
+import UpscaleOutputActions from "@components/UpscaleOutputActions";
 
 const allowedExtensions = ["png", "jpg", "jpeg", "webp"];
 const maxWidth = 1024;
@@ -17,7 +18,7 @@ const maxHeight = 1024;
 export default function Command() {
   const { token, isTokenLoading } = useToken();
   const [isLoading, setIsLoading] = useState(false);
-  const [upscaledImageUrl, setUpscaledImageUrl] = useState<string | undefined>(undefined);
+  const [upscaleOutput, setUpscaleOutput] = useState<TUpscaleCreationOutput | undefined>(undefined);
   const endpoint = "https://api.stablecog.com/v1/image/upscale/create";
   const { handleSubmit } = useForm<TUpscaleFormValues>({
     onSubmit: async (values) => {
@@ -60,8 +61,9 @@ export default function Command() {
         });
         const resJson = (await res.json()) as TUpscaleCreateResult;
         const url = resJson.outputs[0].url;
-        if (!url) throw new Error("No url found!");
-        setUpscaledImageUrl(resJson.outputs[0].url);
+        const id = resJson.outputs[0].id;
+        if (!url || !id) throw new Error("No url found!");
+        setUpscaleOutput({ url, id: id });
       } catch (error) {
         await showToast({ title: `Something went wrong :(`, style: Toast.Style.Failure });
       } finally {
@@ -72,12 +74,13 @@ export default function Command() {
 
   if (isTokenLoading) return <LoadingToken />;
 
-  return isLoading || upscaledImageUrl ? (
+  return isLoading || upscaleOutput ? (
     <Grid isLoading={isLoading} columns={2} onSearchTextChange={() => null}>
       <Grid.Item
+        actions={upscaleOutput && <UpscaleOutputActions item={upscaleOutput}></UpscaleOutputActions>}
         key={"upscaled-image"}
         content={{
-          source: isLoading ? loadingGif : upscaledImageUrl || loadingGif,
+          source: isLoading ? loadingGif : upscaleOutput?.url || loadingGif,
         }}
       ></Grid.Item>
     </Grid>
