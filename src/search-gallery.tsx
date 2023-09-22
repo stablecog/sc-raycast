@@ -13,7 +13,7 @@ export default function Command() {
   const { galleryPage, isLoadingGalleryPage, galleryPageError } = useGallery(query);
   return (
     <Grid
-      searchBarPlaceholder="Search the Stablecog gallery"
+      searchBarPlaceholder="Search gallery..."
       onSearchTextChange={setQuery}
       isLoading={isLoadingGalleryPage}
       columns={defaultGridColumns}

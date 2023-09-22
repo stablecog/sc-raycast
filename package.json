@@ -8,7 +8,8 @@
   "owner": "stablecog",
   "categories": [
     "Design Tools",
-    "Developer Tools"
+    "Developer Tools",
+    "Productivity"
   ],
   "license": "MIT",
   "commands": [

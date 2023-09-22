@@ -19,7 +19,7 @@ export default function Command() {
 
   return (
     <Grid
-      searchBarPlaceholder="Search your Stablecog history"
+      searchBarPlaceholder="Search your history..."
       onSearchTextChange={setQuery}
       isLoading={isLoadingHistoryPage}
       columns={defaultGridColumns}
