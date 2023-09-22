@@ -1,20 +1,22 @@
-import { Grid } from "@raycast/api";
 import { useState } from "react";
 import useGallery from "@hooks/useGallery";
 import GridSearchingPlaceholder from "@components/GridSearchingPlaceholder";
 import GridNoItemsPlaceholder from "@components/GridNoItemsPlaceholder";
 import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
+import GalleryItemActions from "@components/GalleryItemActions";
+import { getThumbnailImgUrl } from "@ts/helpers";
+import { defaultGridColumns } from "@ts/constants";
+import { Grid } from "@raycast/api";
 
 export default function Command() {
   const [query, setQuery] = useState("");
   const { galleryPage, isLoadingGalleryPage, galleryPageError } = useGallery(query);
-
   return (
     <Grid
       searchBarPlaceholder="Search the Stablecog gallery"
       onSearchTextChange={setQuery}
       isLoading={isLoadingGalleryPage}
-      columns={4}
+      columns={defaultGridColumns}
       throttle={true}
     >
       {galleryPageError ? (
@@ -27,8 +29,9 @@ export default function Command() {
         galleryPage?.hits?.map((hit) => (
           <Grid.Item
             key={hit.id}
+            actions={<GalleryItemActions item={hit} />}
             content={{
-              source: hit.image_url,
+              source: getThumbnailImgUrl(hit.image_url, defaultGridColumns),
             }}
           ></Grid.Item>
         ))

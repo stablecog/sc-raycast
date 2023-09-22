@@ -1,8 +1,8 @@
 import { useFetch } from "@raycast/utils";
-import { THistoryPage } from "@ts/types";
+import { TGalleryPage, THistoryPage } from "@ts/types";
 
-export default function useHistory<T>({ search, token }: { search: string; token: string | undefined }): {
-  historyPage: THistoryPage | undefined;
+export default function useHistory({ search, token }: { search: string; token: string | undefined }): {
+  historyPage: TGalleryPage | undefined;
   historyPageError: Error | undefined;
   isLoadingHistoryPage: boolean;
 } {
@@ -23,8 +23,28 @@ export default function useHistory<T>({ search, token }: { search: string; token
       Authorization: `Bearer ${token}`,
     },
   });
+  let dataAsGalleryPage: TGalleryPage | undefined;
+  if (data) {
+    dataAsGalleryPage = {
+      next: data.next,
+      hits: data.outputs.map((output) => ({
+        width: output.generation.width,
+        height: output.generation.height,
+        id: output.id,
+        image_url: output.image_url,
+        upscaled_image_url: output.upscaled_image_url,
+        prompt_text: output.generation.prompt.text,
+        guidance_scale: output.generation.guidance_scale,
+        inference_steps: output.generation.inference_steps,
+        model_id: output.generation.model_id,
+        scheduler_id: output.generation.scheduler_id,
+      })),
+    };
+  } else {
+    dataAsGalleryPage = undefined;
+  }
   if (!token) {
     return { historyPage: undefined, historyPageError: undefined, isLoadingHistoryPage: true };
   }
-  return { historyPage: data, historyPageError: error, isLoadingHistoryPage: isLoading };
+  return { historyPage: dataAsGalleryPage, historyPageError: error, isLoadingHistoryPage: isLoading };
 }

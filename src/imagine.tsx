@@ -5,6 +5,7 @@ import { loadingGif } from "@ts/constants";
 import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
+import GalleryItemActions from "@components/GalleryItemActions";
 
 export default function Command(props: LaunchProps<{ arguments: Arguments.Imagine }>) {
   const { Prompt } = props.arguments;
@@ -24,6 +25,8 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
     },
   });
 
+  if (data) console.log(data);
+
   if (isTokenLoading) return <LoadingToken />;
 
   return (
@@ -34,6 +37,23 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
         Array.from({ length: num_outputs }, (_, i) => (
           <Grid.Item
             key={i}
+            actions={
+              data?.outputs[i] && (
+                <GalleryItemActions
+                  item={{
+                    guidance_scale: data.settings.guidance_scale,
+                    height: data.settings.height,
+                    id: data.outputs[i].id,
+                    image_url: data.outputs[i].url,
+                    inference_steps: data.settings.inference_steps,
+                    model_id: data.settings.model_id,
+                    prompt_text: Prompt,
+                    scheduler_id: data.settings.scheduler_id,
+                    width: data.settings.width,
+                  }}
+                ></GalleryItemActions>
+              )
+            }
             content={{
               source: isLoading ? loadingGif : data?.outputs[i].url || loadingGif,
             }}

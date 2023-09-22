@@ -1,7 +1,7 @@
 import { useFetch } from "@raycast/utils";
 import { TGalleryPage } from "@ts/types";
 
-export default function useGallery<T>(search: string): {
+export default function useGallery(search: string): {
   galleryPage: TGalleryPage | undefined;
   galleryPageError: Error | undefined;
   isLoadingGalleryPage: boolean;

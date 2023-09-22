@@ -6,6 +6,9 @@ import GridNoItemsPlaceholder from "@components/GridNoItemsPlaceholder";
 import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
+import GalleryItemActions from "@components/GalleryItemActions";
+import { defaultGridColumns } from "@ts/constants";
+import { getThumbnailImgUrl } from "@ts/helpers";
 
 export default function Command() {
   const [query, setQuery] = useState("");
@@ -19,21 +22,22 @@ export default function Command() {
       searchBarPlaceholder="Search your Stablecog history"
       onSearchTextChange={setQuery}
       isLoading={isLoadingHistoryPage}
-      columns={4}
+      columns={defaultGridColumns}
       throttle={true}
     >
       {historyPageError ? (
         <GridSomethingWentWrong />
       ) : historyPage === undefined ? (
         <GridSearchingPlaceholder />
-      ) : historyPage.outputs.length === 0 ? (
+      ) : historyPage.hits.length === 0 ? (
         <GridNoItemsPlaceholder />
       ) : (
-        historyPage?.outputs?.map((output) => (
+        historyPage?.hits?.map((hit) => (
           <Grid.Item
-            key={output.id}
+            key={hit.id}
+            actions={<GalleryItemActions item={hit} />}
             content={{
-              source: output.image_url,
+              source: getThumbnailImgUrl(hit.image_url, defaultGridColumns),
             }}
           ></Grid.Item>
         ))
