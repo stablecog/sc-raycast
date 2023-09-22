@@ -1,6 +1,6 @@
 ![Imagine](https://raw.githubusercontent.com/stablecog/sc-raycast/master/assets/stablecog-banner.png)
 
-## Create amazing art with AI in seconds using [Stablecog](https://stablecog.com) and Raycast.
+## Create amazing art with AI in seconds using [Stablecog](https://stablecog.com)
 
 ### Generate images
 
