@@ -1,8 +1,6 @@
-![Imagine](https://raw.githubusercontent.com/stablecog/sc-raycast/master/assets/stablecog-banner.png)
-
 <h1 align="center">Create amazing art in seconds with AI</h1>
 
-## Generate and upscale images with [Stablecog](https://stablecog.com). Search the [Stablecog](https://stablecog.com) gallery and your history.
+Generate and upscale images with [Stablecog](https://stablecog.com). Search the [Stablecog](https://stablecog.com) gallery and your history.
 
 ### Generate images
 

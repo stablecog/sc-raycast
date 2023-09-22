@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "stablecog",
   "title": "Stablecog",
-  "description": "Create amazing art in seconds with AI. Generate and upscale images with Stablecog. Search the Stablecog gallery and your history",
+  "description": "Create amazing art in seconds with AI. Generate and upscale images with Stablecog.",
   "icon": "stablecog.png",
   "author": "yektagg",
   "owner": "stablecog",
