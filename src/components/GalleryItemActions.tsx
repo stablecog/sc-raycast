@@ -1,5 +1,6 @@
-import { Action, ActionPanel, Detail, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Detail, Icon, useNavigation } from "@raycast/api";
 import { modelIdToName, schedulerIdToName } from "@ts/constants";
+import saveImage from "@ts/helpers";
 import { TOutput } from "@ts/types";
 
 export default function GalleryItemActions({ item }: { item: TOutput }) {
@@ -14,6 +15,18 @@ export default function GalleryItemActions({ item }: { item: TOutput }) {
 function GalleryItemDetail({ item }: { item: TOutput }) {
   return (
     <Detail
+      actions={
+        <ActionPanel>
+          <Action
+            title="Save Image"
+            icon={Icon.Download}
+            onAction={() => {
+              saveImage({ url: item.upscaled_image_url ?? item.image_url, id: item.id });
+            }}
+          ></Action>
+          <Action.OpenInBrowser url={item.upscaled_image_url ?? item.image_url}></Action.OpenInBrowser>
+        </ActionPanel>
+      }
       markdown={`![${item.prompt_text}](${item.upscaled_image_url ?? item.image_url})`}
       metadata={
         <Detail.Metadata>

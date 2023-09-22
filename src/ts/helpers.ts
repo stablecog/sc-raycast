@@ -1,4 +1,6 @@
 import { Base64 } from "js-base64";
+import { showHUD } from "@raycast/api";
+import { runAppleScript } from "run-applescript";
 
 const IMGPROXY_URL = "https://img.stablecog.com";
 
@@ -35,3 +37,26 @@ function getImgProxySrc({
 export function getThumbnailImgUrl(src: string, gridSize: number) {
   return getImgProxySrc({ src, preset: gridSize === 2 ? "768w" : "512w" });
 }
+
+interface SaveImageProps {
+  url: string;
+  id: string;
+}
+
+export const saveImage = async ({ url, id }: SaveImageProps) => {
+  try {
+    await showHUD("Please select a location to save the image...");
+    await runAppleScript(`
+      set outputFolder to choose folder with prompt "Please select an output folder:"
+      set temp_folder to (POSIX path of outputFolder) & "${id}.${url.split(".").pop()}"
+      set q_temp_folder to quoted form of temp_folder
+      set cmd to "curl -o " & q_temp_folder & " " & "${url}"
+        do shell script cmd
+    `);
+  } catch (err) {
+    console.error(err);
+    await showHUD("Couldn't save the image...");
+  }
+};
+
+export default saveImage;

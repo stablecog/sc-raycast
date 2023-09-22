@@ -25,8 +25,6 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
     },
   });
 
-  if (data) console.log(data);
-
   if (isTokenLoading) return <LoadingToken />;
 
   return (

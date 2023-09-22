@@ -57,7 +57,8 @@
     "formdata-node": "^5.0.1",
     "image-size": "^1.0.2",
     "js-base64": "^3.7.5",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "run-applescript": "^6.1.0"
   },
   "devDependencies": {
     "@raycast/eslint-config": "1.0.5",
