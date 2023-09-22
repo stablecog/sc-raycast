@@ -15,7 +15,7 @@
     {
       "name": "imagine",
       "title": "Imagine",
-      "subtitle": "Create art with AI",
+      "subtitle": "Stablecog",
       "description": "Create art with AI.",
       "mode": "view",
       "arguments": [
@@ -28,8 +28,8 @@
       ]
     },
     {
-      "name": "search-your-history",
-      "title": "Search Your History",
+      "name": "search-history",
+      "title": "Search History",
       "subtitle": "Stablecog",
       "description": "Search your history on Stablecog.",
       "mode": "view"
@@ -44,7 +44,7 @@
     {
       "name": "upscale",
       "title": "Upscale",
-      "subtitle": "Upscale images with AI",
+      "subtitle": "Stablecog",
       "description": "Upscale images with AI.",
       "mode": "view"
     }
