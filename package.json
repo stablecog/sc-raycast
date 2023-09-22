@@ -28,8 +28,15 @@
       ]
     },
     {
-      "name": "search-history",
-      "title": "Search History",
+      "name": "upscale",
+      "title": "Upscale",
+      "subtitle": "Stablecog",
+      "description": "Upscale images with AI.",
+      "mode": "view"
+    },
+    {
+      "name": "search-your-history",
+      "title": "Search Your History",
       "subtitle": "Stablecog",
       "description": "Search your history on Stablecog.",
       "mode": "view"
@@ -39,13 +46,6 @@
       "title": "Search Gallery",
       "subtitle": "Stablecog",
       "description": "Search the Stablecog gallery.",
-      "mode": "view"
-    },
-    {
-      "name": "upscale",
-      "title": "Upscale",
-      "subtitle": "Stablecog",
-      "description": "Upscale images with AI.",
       "mode": "view"
     }
   ],
