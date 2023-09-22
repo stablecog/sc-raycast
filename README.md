@@ -1,6 +1,6 @@
-# Stablecog
+# [Stablecog](https://stablecog.com)
 
-Create amazing art with AI in seconds using Stablecog and Raycast.
+Create amazing art with AI in seconds using [Stablecog](https://stablecog.com) and Raycast.
 
 ### Generate images:
 
