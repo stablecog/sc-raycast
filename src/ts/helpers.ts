@@ -58,5 +58,3 @@ export const saveImage = async ({ url, id }: SaveImageProps) => {
     await showHUD("Couldn't save the image...");
   }
 };
-
-export default saveImage;

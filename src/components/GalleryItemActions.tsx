@@ -1,6 +1,6 @@
 import { Action, ActionPanel, Detail, Icon, useNavigation } from "@raycast/api";
 import { modelIdToName, schedulerIdToName } from "@ts/constants";
-import saveImage from "@ts/helpers";
+import { saveImage } from "@ts/helpers";
 import { TOutput } from "@ts/types";
 
 export default function GalleryItemActions({ item }: { item: TOutput }) {
