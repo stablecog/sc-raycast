@@ -12,8 +12,8 @@ import LoadingToken from "@components/LoadingToken";
 import UpscaleOutputActions from "@components/UpscaleOutputActions";
 
 const allowedExtensions = ["png", "jpg", "jpeg", "webp"];
-const maxWidth = 1024;
-const maxHeight = 1024;
+const maxSquareSize = 1024;
+const maxMegapixels = maxSquareSize * maxSquareSize;
 
 export default function Command() {
   const { token, isTokenLoading } = useToken();
@@ -39,9 +39,9 @@ export default function Command() {
         return;
       }
       const imageSize = imageSizeOf(buffer);
-      if (!imageSize.width || !imageSize.height || imageSize.width > maxWidth || imageSize.height > maxHeight) {
+      if (!imageSize.width || !imageSize.height || imageSize.width * imageSize.height > maxMegapixels) {
         await showToast({
-          title: `Image must be smaller than ${maxWidth + 1} × ${maxHeight + 1}`,
+          title: `Image can't be bigger than ${maxSquareSize} × ${maxSquareSize}`,
           style: Toast.Style.Failure,
         });
         return;
