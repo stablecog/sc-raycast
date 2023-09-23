@@ -98,7 +98,7 @@ function ImagineWithOptionsForm({ handleSubmit }: { handleSubmit: (values: TGene
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm onSubmit={handleSubmit} title="Generate" />
+          <Action.SubmitForm onSubmit={handleSubmit} title="Imagine" />
         </ActionPanel>
       }
     >
