@@ -1,17 +1,16 @@
 import { useFetch } from "@raycast/utils";
+import { itemsPerPage, scoreThreshold } from "@ts/constants";
 import { TGalleryPage } from "@ts/types";
 
-export default function useGallery(search: string): {
+export default function useGallery({ search, token }: { search: string | undefined; token: string | undefined }): {
   galleryPage: TGalleryPage | undefined;
   galleryPageError: Error | undefined;
   isLoadingGalleryPage: boolean;
 } {
   const endpoint = "https://api.stablecog.com/v1/gallery";
-  const per_page = 50;
-  const score_threshold = 50;
   const url = new URL(endpoint);
-  url.searchParams.append("per_page", per_page.toString());
-  url.searchParams.append("score_threshold", score_threshold.toString());
+  url.searchParams.append("per_page", itemsPerPage.toString());
+  url.searchParams.append("score_threshold", scoreThreshold.toString());
   if (search) {
     url.searchParams.append("search", search);
   }
@@ -19,6 +18,7 @@ export default function useGallery(search: string): {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
   return { galleryPage: data, galleryPageError: error, isLoadingGalleryPage: isLoading };

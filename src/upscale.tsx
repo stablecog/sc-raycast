@@ -10,6 +10,8 @@ import imageSizeOf from "image-size";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 import UpscaleOutputActions from "@components/UpscaleOutputActions";
+import LoadingGrid from "@components/LoadingGrid";
+import ErrorGrid from "@components/ErrorGrid";
 
 const allowedExtensions = ["png", "jpg", "jpeg", "webp"];
 const maxSquareSize = 1024;
@@ -18,6 +20,7 @@ const maxMegapixels = maxSquareSize * maxSquareSize;
 export default function Command() {
   const { token, isTokenLoading } = useToken();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   const [upscaleOutput, setUpscaleOutput] = useState<TUpscaleCreationOutput | undefined>(undefined);
   const endpoint = "https://api.stablecog.com/v1/image/upscale/create";
   const { handleSubmit } = useForm<TUpscaleFormValues>({
@@ -64,27 +67,37 @@ export default function Command() {
         const id = resJson.outputs[0].id;
         if (!url || !id) throw new Error("No url found!");
         setUpscaleOutput({ url, id: id });
+        setIsLoading(false);
       } catch (error) {
         await showToast({ title: `Something went wrong :(`, style: Toast.Style.Failure });
-      } finally {
         setIsLoading(false);
+        setError("Something went wrong :(");
       }
     },
   });
 
   if (isTokenLoading) return <LoadingToken />;
+  if (error) return <ErrorGrid columns={2} />;
+  if (isLoading) return <LoadingGrid columns={2} itemCount={1} />;
 
-  return isLoading || upscaleOutput ? (
-    <Grid isLoading={isLoading} columns={2} onSearchTextChange={() => null}>
-      <Grid.Item
-        actions={upscaleOutput && <UpscaleOutputActions item={upscaleOutput}></UpscaleOutputActions>}
-        key={"upscaled-image"}
-        content={{
-          source: isLoading ? loadingGif : upscaleOutput?.url || loadingGif,
-        }}
-      ></Grid.Item>
-    </Grid>
-  ) : (
+  if (upscaleOutput)
+    return (
+      <Grid isLoading={isLoading} columns={2} onSearchTextChange={() => null}>
+        <Grid.Item
+          actions={upscaleOutput && <UpscaleOutputActions item={upscaleOutput}></UpscaleOutputActions>}
+          key={"upscaled-image"}
+          content={{
+            source: isLoading ? loadingGif : upscaleOutput?.url || loadingGif,
+          }}
+        ></Grid.Item>
+      </Grid>
+    );
+
+  return <UpscaleForm handleSubmit={handleSubmit} />;
+}
+
+function UpscaleForm({ handleSubmit }: { handleSubmit: (values: TUpscaleFormValues) => void }) {
+  return (
     <Form
       actions={
         <ActionPanel>

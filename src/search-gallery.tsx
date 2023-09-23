@@ -7,10 +7,16 @@ import GalleryItemActions from "@components/GalleryItemActions";
 import { getThumbnailImgUrl } from "@ts/helpers";
 import { defaultGridColumns } from "@ts/constants";
 import { Grid } from "@raycast/api";
+import { useToken } from "@hooks/useAuthorization";
+import LoadingToken from "@components/LoadingToken";
 
 export default function Command() {
   const [query, setQuery] = useState("");
-  const { galleryPage, isLoadingGalleryPage, galleryPageError } = useGallery(query);
+  const { token, isTokenLoading } = useToken();
+  const { galleryPage, isLoadingGalleryPage, galleryPageError } = useGallery({ search: query, token: token });
+
+  if (isTokenLoading) return <LoadingToken />;
+
   return (
     <Grid
       searchBarPlaceholder="Search gallery..."

@@ -1,18 +1,17 @@
 import { useFetch } from "@raycast/utils";
+import { itemsPerPage, scoreThreshold } from "@ts/constants";
 import { TGalleryPage, THistoryPage } from "@ts/types";
 
-export default function useHistory({ search, token }: { search: string; token: string | undefined }): {
+export default function useHistory({ search, token }: { search: string | undefined; token: string | undefined }): {
   historyPage: TGalleryPage | undefined;
   historyPageError: Error | undefined;
   isLoadingHistoryPage: boolean;
 } {
   const endpoint = "https://api.stablecog.com/v1/image/generation/outputs";
-  const per_page = 50;
-  const score_threshold = 50;
   const url = new URL(endpoint);
 
-  url.searchParams.append("score_threshold", score_threshold.toString());
-  url.searchParams.append("per_page", per_page.toString());
+  url.searchParams.append("per_page", itemsPerPage.toString());
+  url.searchParams.append("score_threshold", scoreThreshold.toString());
   if (search) {
     url.searchParams.append("search", search);
   }

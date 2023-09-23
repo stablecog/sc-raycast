@@ -1,6 +1,7 @@
 import { Base64 } from "js-base64";
 import { showHUD } from "@raycast/api";
 import { runAppleScript } from "run-applescript";
+import { maxPromptLength } from "@ts/constants";
 
 const IMGPROXY_URL = "https://img.stablecog.com";
 
@@ -57,4 +58,23 @@ export const saveImage = async ({ url, id }: SaveImageProps) => {
     console.error(err);
     await showHUD("Couldn't save the image...");
   }
+};
+
+const multiLineBreaksRegex = /\n\s*\n/g;
+const singleLineBreaksRegex = /\n/g;
+
+export const removeLineBreaks = (text: string): string => {
+  return text.replace(multiLineBreaksRegex, "\n").replace(singleLineBreaksRegex, " ");
+};
+
+export const removeSuffixSpaces = (text: string): string => {
+  return text.replace(/\s+$/, "");
+};
+
+export const removeRedundantSpaces = (text: string): string => {
+  return text.replace(/\s+/g, " ");
+};
+
+export const formatPrompt = (text: string): string => {
+  return removeRedundantSpaces(removeSuffixSpaces(removeLineBreaks(text.slice(0, maxPromptLength))));
 };

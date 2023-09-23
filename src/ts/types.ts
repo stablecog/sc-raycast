@@ -1,9 +1,11 @@
+import { TAspectRatio, TModelId, TModelName, TNumOutputs, TSchedulerId } from "@ts/constants";
+
 export interface TGenerationCreateResult {
   outputs: TGenerationCreationOutput[];
   remaining_credits: number;
   settings: {
-    model_id: string;
-    scheduler_id: string;
+    model_id: TModelId;
+    scheduler_id: TSchedulerId;
     width: number;
     height: number;
     guidance_scale: number;
@@ -46,8 +48,8 @@ export interface TOutput {
   height: number;
   guidance_scale: number;
   inference_steps: number;
-  model_id: string;
-  scheduler_id: string;
+  model_id: TModelId;
+  scheduler_id: TSchedulerId;
 }
 
 export interface TOutputHistory {
@@ -62,11 +64,18 @@ export interface TOutputHistory {
     height: number;
     guidance_scale: number;
     inference_steps: number;
-    model_id: string;
-    scheduler_id: string;
+    model_id: TModelId;
+    scheduler_id: TSchedulerId;
   };
 }
 
 export interface TUpscaleFormValues {
   images: string[];
+}
+
+export interface TGenerationFormValues {
+  prompt: string;
+  model: TModelName;
+  aspect_ratio: TAspectRatio;
+  num_outputs: TNumOutputs;
 }
