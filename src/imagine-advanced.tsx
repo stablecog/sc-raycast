@@ -104,12 +104,12 @@ function ImagineAdvancedForm({ handleSubmit }: { handleSubmit: (values: TGenerat
     >
       <Form.TextArea placeholder="Portrait of a cat by van Gogh" title="Prompt" id="prompt" autoFocus />
       <Form.Dropdown title="Aspect Ratio" id="aspect_ratio" defaultValue="1:1">
-        <Form.Dropdown.Item title="1:1" value="1:1" />
-        <Form.Dropdown.Item value="2:3" title="2:3" />
-        <Form.Dropdown.Item value="3:2" title="3:2" />
-        <Form.Dropdown.Item value="9:16" title="9:16" />
-        <Form.Dropdown.Item value="16:9" title="16:9" />
-        <Form.Dropdown.Item value="4:5" title="4:5" />
+        <Form.Dropdown.Item title="Square (1:1)" value="1:1" />
+        <Form.Dropdown.Item title="Portrait (2:3)" value="2:3" />
+        <Form.Dropdown.Item title="Landscape (3:2)" value="3:2" />
+        <Form.Dropdown.Item title="Mobile (9:16)" value="9:16" />
+        <Form.Dropdown.Item title="Desktop (16:9)" value="16:9" />
+        <Form.Dropdown.Item title="Squarish (4:5)" value="4:5" />
       </Form.Dropdown>
       <Form.Dropdown title="Model" id="model" defaultValue="Kandinsky 2.2">
         <Form.Dropdown.Item title="Kandinsky 2.2" value="Kandinsky 2.2" />
