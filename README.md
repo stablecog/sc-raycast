@@ -6,18 +6,22 @@ Generate and upscale images with [Stablecog](https://stablecog.com). Search the 
 
 ![Imagine](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/1-imagine.png)
 
+### Generate images with advanced options
+
+![Imagine (Advanced)](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/2-imagine-advanced.png)
+
 ### Upscale images
 
-![Upscale](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/2-upscale.png)
+![Upscale](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/3-upscale.png)
 
 ### Search our gallery for inspiration
 
-![Search Gallery](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/3-gallery.png)
+![Search Gallery](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/4-gallery.png)
 
 ### Search your history
 
-![Search Your History](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/4-history.png)
+![Search Your History](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/5-history.png)
 
 ### View generation details
 
-![Generation Details](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/5-generation-details.png)
+![Generation Details](https://raw.githubusercontent.com/stablecog/sc-raycast/master/metadata/6-generation-details.png)

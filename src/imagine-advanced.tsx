@@ -36,7 +36,7 @@ export default function Command() {
         height: aspectRatioToSize[aspect_ratio].height,
       };
       setNumOutputs(Number(num_outputs));
-      setCleanedPrompt(cleanedPrompt);
+      setCleanedPrompt(_cleanedPrompt);
       setIsLoading(true);
       try {
         const res = await fetch(endpoint, {
@@ -90,10 +90,10 @@ export default function Command() {
       </Grid>
     );
 
-  return <ImagineWithOptionsForm handleSubmit={handleSubmit} />;
+  return <ImagineAdvancedForm handleSubmit={handleSubmit} />;
 }
 
-function ImagineWithOptionsForm({ handleSubmit }: { handleSubmit: (values: TGenerationFormValues) => void }) {
+function ImagineAdvancedForm({ handleSubmit }: { handleSubmit: (values: TGenerationFormValues) => void }) {
   return (
     <Form
       actions={
@@ -109,6 +109,7 @@ function ImagineWithOptionsForm({ handleSubmit }: { handleSubmit: (values: TGene
         <Form.Dropdown.Item value="3:2" title="3:2" />
         <Form.Dropdown.Item value="9:16" title="9:16" />
         <Form.Dropdown.Item value="16:9" title="16:9" />
+        <Form.Dropdown.Item value="4:5" title="4:5" />
       </Form.Dropdown>
       <Form.Dropdown title="Model" id="model" defaultValue="Kandinsky 2.2">
         <Form.Dropdown.Item title="Kandinsky 2.2" value="Kandinsky 2.2" />

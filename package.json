@@ -29,8 +29,8 @@
       ]
     },
     {
-      "name": "imagine-with-options",
-      "title": "Imagine with Options",
+      "name": "imagine-advanced",
+      "title": "Imagine (Advanced)",
       "subtitle": "Stablecog",
       "description": "Create art with AI using advanced options.",
       "mode": "view"
