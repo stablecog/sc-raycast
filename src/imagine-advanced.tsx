@@ -7,9 +7,10 @@ import { aspectRatioToSize, defaultGridColumnsForImagine, modelNameToId } from "
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 import GalleryItemActions from "@components/GalleryItemActions";
-import ErrorGrid from "@components/ErrorGrid";
-import LoadingGrid from "@components/LoadingGrid";
+import GridLoading from "@components/GridLoading";
 import { formatPrompt } from "@ts/helpers";
+import GridError from "@components/GridError";
+import { getErrorText } from "@ts/errors";
 
 export default function Command() {
   const { token, isTokenLoading } = useToken();
@@ -46,19 +47,21 @@ export default function Command() {
           },
         });
         const resJson = (await res.json()) as TGenerationCreateResult;
+        if (resJson.error) throw new Error(resJson.error);
         setGenerationResult(resJson);
         setIsLoading(false);
-      } catch (error) {
-        setError("Something went wrong :(");
+      } catch (err) {
+        let _err = err instanceof Error ? err.message : "Something went wrong :(";
         setIsLoading(false);
-        await showToast({ title: "Something went wrong :(", style: Toast.Style.Failure });
+        setError(_err);
+        await showToast({ title: getErrorText(_err), style: Toast.Style.Failure });
       }
     },
   });
 
   if (isTokenLoading) return <LoadingToken />;
-  if (error) return <ErrorGrid columns={defaultGridColumnsForImagine} />;
-  if (isLoading) return <LoadingGrid columns={defaultGridColumnsForImagine} itemCount={numOutputs}></LoadingGrid>;
+  if (error) return <GridError error={error} />;
+  if (isLoading) return <GridLoading columns={defaultGridColumnsForImagine} itemCount={numOutputs}></GridLoading>;
 
   if (generationResult)
     return (

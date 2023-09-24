@@ -1,11 +1,16 @@
 import { LaunchProps, Grid, getPreferenceValues } from "@raycast/api";
-import { useFetch } from "@raycast/utils";
+import { useFetch, usePromise } from "@raycast/utils";
 import { TGenerationCreateResult } from "@ts/types";
 import { aspectRatioToSize, defaultGridColumnsForImagine, loadingGif, modelNameToId } from "@ts/constants";
-import GridSomethingWentWrong from "@components/GridSomethingWentWrong";
+import GridSomethingWentWrong from "@components/GridError";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 import GalleryItemActions from "@components/GalleryItemActions";
+import GridError from "@components/GridError";
+import GridLoading from "@components/GridLoading";
+import fetch from "node-fetch";
+import { authorize } from "@api/oauth";
+import { getErrorText } from "@ts/errors";
 
 export default function Command(props: LaunchProps<{ arguments: Arguments.Imagine }>) {
   const { Prompt } = props.arguments;
@@ -20,49 +25,54 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
     width: size.width,
     height: size.height,
   };
-  const { token, isTokenLoading } = useToken();
-  const { data, isLoading, error } = useFetch<TGenerationCreateResult>(endpoint, {
-    method: "POST",
-    body: JSON.stringify(generationParams),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+  const { isTokenLoading } = useToken();
+  const { data, isLoading, error } = usePromise(async () => {
+    const token = await authorize();
+    const res = await fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(generationParams),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const resJson = (await res.json()) as TGenerationCreateResult;
+    if (resJson.error) throw new Error(getErrorText(resJson.error));
+    return resJson;
   });
 
   if (isTokenLoading) return <LoadingToken />;
+  if (error) return <GridError error={error.message} />;
+  if (isLoading || !data)
+    return <GridLoading columns={defaultGridColumnsForImagine} itemCount={num_outputs_int}></GridLoading>;
 
   return (
-    <Grid isLoading={isLoading} columns={defaultGridColumnsForImagine} onSearchTextChange={() => null}>
-      {error ? (
-        <GridSomethingWentWrong />
-      ) : (
-        Array.from({ length: num_outputs_int }, (_, i) => (
-          <Grid.Item
-            key={i}
-            actions={
-              data?.outputs[i] && (
-                <GalleryItemActions
-                  item={{
-                    guidance_scale: data.settings.guidance_scale,
-                    height: data.settings.height,
-                    id: data.outputs[i].id,
-                    image_url: data.outputs[i].url,
-                    inference_steps: data.settings.inference_steps,
-                    model_id: data.settings.model_id,
-                    prompt_text: Prompt,
-                    scheduler_id: data.settings.scheduler_id,
-                    width: data.settings.width,
-                  }}
-                ></GalleryItemActions>
-              )
-            }
-            content={{
-              source: isLoading ? loadingGif : data?.outputs[i].url || loadingGif,
-            }}
-          ></Grid.Item>
-        ))
-      )}
+    <Grid columns={defaultGridColumnsForImagine} onSearchTextChange={() => null}>
+      {data.outputs.map((output, i) => (
+        <Grid.Item
+          key={i}
+          actions={
+            data?.outputs[i] && (
+              <GalleryItemActions
+                item={{
+                  guidance_scale: data.settings.guidance_scale,
+                  height: data.settings.height,
+                  id: output.id,
+                  image_url: output.url,
+                  inference_steps: data.settings.inference_steps,
+                  model_id: data.settings.model_id,
+                  prompt_text: Prompt,
+                  scheduler_id: data.settings.scheduler_id,
+                  width: data.settings.width,
+                }}
+              ></GalleryItemActions>
+            )
+          }
+          content={{
+            source: output.url,
+          }}
+        ></Grid.Item>
+      ))}
     </Grid>
   );
 }

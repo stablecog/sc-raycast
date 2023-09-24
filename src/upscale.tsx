@@ -10,8 +10,9 @@ import imageSizeOf from "image-size";
 import { useToken } from "@hooks/useAuthorization";
 import LoadingToken from "@components/LoadingToken";
 import UpscaleOutputActions from "@components/UpscaleOutputActions";
-import LoadingGrid from "@components/LoadingGrid";
-import ErrorGrid from "@components/ErrorGrid";
+import GridLoading from "@components/GridLoading";
+import GridSomethingWentWrong from "@components/GridError";
+import { getErrorText } from "@ts/errors";
 
 const allowedExtensions = ["png", "jpg", "jpeg", "webp"];
 const maxSquareSize = 1024;
@@ -63,22 +64,26 @@ export default function Command() {
           },
         });
         const resJson = (await res.json()) as TUpscaleCreateResult;
+        if (resJson.error) {
+          throw new Error(resJson.error);
+        }
         const url = resJson.outputs[0].url;
         const id = resJson.outputs[0].id;
         if (!url || !id) throw new Error("No url found!");
         setUpscaleOutput({ url, id: id });
         setIsLoading(false);
-      } catch (error) {
-        await showToast({ title: `Something went wrong :(`, style: Toast.Style.Failure });
+      } catch (err) {
+        let _err = err instanceof Error ? err.message : "Something went wrong :(";
         setIsLoading(false);
-        setError("Something went wrong :(");
+        setError(_err);
+        await showToast({ title: getErrorText(_err), style: Toast.Style.Failure });
       }
     },
   });
 
   if (isTokenLoading) return <LoadingToken />;
-  if (error) return <ErrorGrid columns={2} />;
-  if (isLoading) return <LoadingGrid columns={2} itemCount={1} />;
+  if (error) return <GridSomethingWentWrong error={error} />;
+  if (isLoading) return <GridLoading columns={2} itemCount={1} />;
 
   if (upscaleOutput)
     return (

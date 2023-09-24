@@ -12,6 +12,7 @@ export interface TGenerationCreateResult {
     inference_steps: number;
     seed: number;
   };
+  error?: string;
 }
 
 export interface TGenerationCreationOutput {
@@ -22,6 +23,7 @@ export interface TGenerationCreationOutput {
 export interface TUpscaleCreateResult {
   outputs: TUpscaleCreationOutput[];
   remaining_credits: number;
+  error?: string;
 }
 
 export interface TUpscaleCreationOutput {

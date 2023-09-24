@@ -1,7 +1,7 @@
 import { Grid } from "@raycast/api";
 import { loadingGif } from "@ts/constants";
 
-export default function LoadingGrid({ columns, itemCount }: { columns: number; itemCount: number }) {
+export default function GridLoading({ columns, itemCount }: { columns: number; itemCount: number }) {
   return (
     <Grid isLoading={true} columns={columns} onSearchTextChange={() => null}>
       {Array.from({ length: itemCount }, (_, i) => (
