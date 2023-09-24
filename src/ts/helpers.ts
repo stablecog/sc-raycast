@@ -75,6 +75,7 @@ export const removeRedundantSpaces = (text: string): string => {
   return text.replace(/\s+/g, " ");
 };
 
-export const formatPrompt = (text: string): string => {
+export const formatPrompt = (text: string | undefined): string => {
+  if (!text) return "";
   return removeRedundantSpaces(removeSuffixSpaces(removeLineBreaks(text.slice(0, maxPromptLength))));
 };

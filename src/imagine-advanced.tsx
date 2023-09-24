@@ -23,9 +23,8 @@ export default function Command() {
     onSubmit: async (values) => {
       const { prompt, model, aspect_ratio, num_outputs } = values;
       const _cleanedPrompt = formatPrompt(prompt);
-      setCleanedPrompt(_cleanedPrompt);
-      if (!_cleanedPrompt) {
-        await showToast({ title: "Please enter a prompt", style: Toast.Style.Failure });
+      if (_cleanedPrompt.length < 1) {
+        await showToast({ title: "Prompt is required!", style: Toast.Style.Failure });
         return;
       }
       const generationRequest = {
@@ -52,7 +51,7 @@ export default function Command() {
       } catch (error) {
         setError("Something went wrong :(");
         setIsLoading(false);
-        await showToast({ title: `Something went wrong :(`, style: Toast.Style.Failure });
+        await showToast({ title: "Something went wrong :(", style: Toast.Style.Failure });
       }
     },
   });
@@ -94,6 +93,12 @@ export default function Command() {
 }
 
 function ImagineAdvancedForm({ handleSubmit }: { handleSubmit: (values: TGenerationFormValues) => void }) {
+  const [promptError, setPromptError] = useState<string | undefined>(undefined);
+  const dropPromptError = () => {
+    if (promptError && promptError.length > 0) {
+      setPromptError(undefined);
+    }
+  };
   return (
     <Form
       actions={
@@ -102,7 +107,23 @@ function ImagineAdvancedForm({ handleSubmit }: { handleSubmit: (values: TGenerat
         </ActionPanel>
       }
     >
-      <Form.TextArea placeholder="Portrait of a cat by van Gogh" title="Prompt" id="prompt" autoFocus />
+      <Form.TextArea
+        onChange={dropPromptError}
+        onFocus={dropPromptError}
+        onBlur={(event) => {
+          const cleaned = formatPrompt(event.target.value);
+          if (cleaned.length < 1) {
+            setPromptError("Prompt is required!");
+          } else {
+            dropPromptError();
+          }
+        }}
+        error={promptError}
+        placeholder="Portrait of a cat by van Gogh"
+        title="Prompt"
+        id="prompt"
+        autoFocus
+      />
       <Form.Dropdown title="Aspect Ratio" id="aspect_ratio" defaultValue="1:1">
         <Form.Dropdown.Item title="Square (1:1)" value="1:1" />
         <Form.Dropdown.Item title="Portrait (2:3)" value="2:3" />
