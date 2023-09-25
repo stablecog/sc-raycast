@@ -1,12 +1,17 @@
 import { Action, ActionPanel, Grid, Icon } from "@raycast/api";
-
-const notEnoughCreditsString = "Not enough credits. Subscribe for more!";
+import {
+  getErrorText,
+  insufficientCreditsCode,
+  notEnoughCreditsString,
+  nsfwPromptCode,
+  nsfwPromptString,
+} from "@ts/errors";
 
 export default function GridError({ error }: { error: string }) {
   return (
     <Grid
       actions={
-        (error === "insufficient_credits" || error === notEnoughCreditsString) && (
+        (error === insufficientCreditsCode || error === notEnoughCreditsString) && (
           <ActionPanel>
             <Action.OpenInBrowser title="Subscribe at stablecog.com" url="https://stablecog.com/pricing" />
           </ActionPanel>
@@ -15,8 +20,14 @@ export default function GridError({ error }: { error: string }) {
     >
       <Grid.EmptyView
         key="error"
-        icon={error === "insufficient_credits" || error === notEnoughCreditsString ? Icon.Bolt : Icon.Bug}
-        title={error === "insufficient_credits" ? notEnoughCreditsString : error}
+        icon={
+          error === insufficientCreditsCode || error === notEnoughCreditsString
+            ? Icon.Bolt
+            : error === nsfwPromptCode || error === nsfwPromptString
+            ? Icon.Warning
+            : Icon.Bug
+        }
+        title={getErrorText(error)}
       />
     </Grid>
   );

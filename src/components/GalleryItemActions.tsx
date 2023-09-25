@@ -41,8 +41,14 @@ function GalleryItemDetail({ item }: { item: TOutput }) {
             text={item.inference_steps.toLocaleString()}
           ></Detail.Metadata.Label>
           <Detail.Metadata.Label title="Scheduler" text={schedulerIdToName[item.scheduler_id]}></Detail.Metadata.Label>
-          <Detail.Metadata.Label title="Width" text={item.width.toLocaleString()}></Detail.Metadata.Label>
-          <Detail.Metadata.Label title="Height" text={item.height.toLocaleString()}></Detail.Metadata.Label>
+          <Detail.Metadata.Label
+            title="Width"
+            text={(item.width * (item.upscaled_image_url ? 4 : 1)).toLocaleString()}
+          ></Detail.Metadata.Label>
+          <Detail.Metadata.Label
+            title="Height"
+            text={(item.height * (item.upscaled_image_url ? 4 : 1)).toLocaleString()}
+          ></Detail.Metadata.Label>
         </Detail.Metadata>
       }
     ></Detail>
