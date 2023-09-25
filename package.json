@@ -4,8 +4,9 @@
   "title": "Stablecog",
   "description": "Create amazing art in seconds with AI. Generate and upscale images with Stablecog.",
   "icon": "stablecog.png",
-  "author": "yektagg",
   "owner": "stablecog",
+  "access": "public",
+  "author": "yektagg",
   "categories": [
     "Design Tools",
     "Developer Tools",
