@@ -1,3 +1,4 @@
+import { authorize } from "@api/oauth";
 import GalleryItemActions from "@components/GalleryItemActions";
 import GridError from "@components/GridError";
 import GridLoading from "@components/GridLoading";
