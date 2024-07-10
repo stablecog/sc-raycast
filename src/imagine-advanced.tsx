@@ -72,15 +72,19 @@ export default function Command() {
             actions={
               <GalleryItemActions
                 item={{
-                  guidance_scale: generationResult.settings.guidance_scale,
-                  height: generationResult.settings.height,
                   id: output.id,
                   image_url: output.url,
-                  inference_steps: generationResult.settings.inference_steps,
-                  model_id: generationResult.settings.model_id,
-                  prompt_text: cleanedPrompt,
-                  scheduler_id: generationResult.settings.scheduler_id,
-                  width: generationResult.settings.width,
+                  generation: {
+                    guidance_scale: generationResult.settings.guidance_scale,
+                    height: generationResult.settings.height,
+                    inference_steps: generationResult.settings.inference_steps,
+                    model_id: generationResult.settings.model_id,
+                    prompt: {
+                      text: cleanedPrompt,
+                    },
+                    scheduler_id: generationResult.settings.scheduler_id,
+                    width: generationResult.settings.width,
+                  },
                 }}
               ></GalleryItemActions>
             }

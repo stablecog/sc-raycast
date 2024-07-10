@@ -22,6 +22,7 @@ export const modelIdToName = {
   "9fa49c00-109d-430f-9ddd-449f02e2c71a": "Kandinsky 2.2",
   "3fb1f6d9-c0d3-4ae4-adf4-77f8da78a6f7": "Waifu Diffusion XL",
   "48a7031d-43b6-4a23-9f8c-8020eb6862e4": "Ghibli Diffusion",
+  "4e54440f-ee17-4712-b4b6-0671b94d685d": "SSD-1B",
 } as const;
 
 export type TModelId = keyof typeof modelIdToName;
