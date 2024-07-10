@@ -29,9 +29,9 @@ export default function useHistory({
   const { data, error, isLoading } = useFetch<TGalleryPage>(url.toString(), {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    execute: token !== undefined,
   });
   if (!token) {
     return { page: undefined, pageError: undefined, isLoadingPage: true };
