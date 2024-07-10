@@ -15,7 +15,7 @@ export default function useHistory({
   pageError: Error | undefined;
   isLoadingPage: boolean;
 } {
-  const endpoint = "https://api.stablecog.com/v1/user/outputs";
+  const endpoint = "https://api.stablecog.com/v1/image/generation/outputs";
   const url = new URL(endpoint);
 
   url.searchParams.append("per_page", itemsPerPage.toString());
