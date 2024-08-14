@@ -64,7 +64,6 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
                     prompt: {
                       text: Prompt,
                     },
-                    scheduler_id: data.settings.scheduler_id,
                     width: data.settings.width,
                   },
                 }}
