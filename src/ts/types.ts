@@ -8,7 +8,6 @@ export interface TGenerationCreateResult {
     width: number;
     height: number;
     guidance_scale: number;
-    inference_steps: number;
     seed: number;
   };
   error?: string;
@@ -46,7 +45,6 @@ export interface TOutput {
     width: number;
     height: number;
     guidance_scale: number;
-    inference_steps: number;
     model_id: TModelId;
   };
 }
@@ -62,7 +60,6 @@ export interface TOutputHistory {
     width: number;
     height: number;
     guidance_scale: number;
-    inference_steps: number;
     model_id: TModelId;
   };
 }

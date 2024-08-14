@@ -59,7 +59,6 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.Imagin
                   generation: {
                     height: data.settings.height,
                     guidance_scale: data.settings.guidance_scale,
-                    inference_steps: data.settings.inference_steps,
                     model_id: data.settings.model_id,
                     prompt: {
                       text: Prompt,

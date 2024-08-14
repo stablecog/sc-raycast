@@ -77,7 +77,6 @@ export default function Command() {
                   generation: {
                     guidance_scale: generationResult.settings.guidance_scale,
                     height: generationResult.settings.height,
-                    inference_steps: generationResult.settings.inference_steps,
                     model_id: generationResult.settings.model_id,
                     prompt: {
                       text: cleanedPrompt,
